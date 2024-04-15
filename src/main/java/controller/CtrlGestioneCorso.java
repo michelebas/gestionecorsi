@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import model.dao.CorsoService;
 import model.dao.DocenteService;
 import model.session.Corso;
+import model.session.Discente;
 import model.session.Docente;
 
 @WebServlet("/CtrlGestioneCorso")

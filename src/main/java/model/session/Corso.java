@@ -1,6 +1,9 @@
 package model.session;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Corso")
@@ -18,6 +21,12 @@ public class Corso {
     @JoinColumn(name = "fkIdDocente")
     private Docente oDocente;
 
+    @ManyToMany
+    @JoinTable(
+            name="corsoDiscente",
+            joinColumns = @JoinColumn(name = "matricola"),
+            inverseJoinColumns = @JoinColumn(name = "idCorso"))
+    private Set<Discente> discenti;
 
 
     public Corso(){
@@ -55,5 +64,13 @@ public class Corso {
 
     public Docente getObjDocente() {
         return oDocente;
+    }
+
+    public void setDiscenti(Set<Discente> discenti) {
+        this.discenti = discenti;
+    }
+
+    public Set<Discente> getDiscenti() {
+        return discenti;
     }
 }

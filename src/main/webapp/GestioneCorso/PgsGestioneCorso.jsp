@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@page import="model.session.Corso"%>
 <%@page import="model.session.Docente"%>
+<%@page import="model.session.Discente"%>
 <html>
     <head>
         <%@ page
@@ -29,13 +30,13 @@
                 <input type="submit" name="cmdAzione" value="Torna alla Home" class=" btn btn-primary">
             </form>
             <form method="post" action="/WebProjectMavenized/CtrlGestioneCorso" name="GestioneCorso">
-                    <table class="table table-hover table-dark table-responsive-sm">
-                        <tbody>
+                    <table class="table table-hover table-dark table-responsive-sm" style="margin-left:35px;">
+                        <tbody style="display:-webkit-inline-box; max-height:200px; overflow-y:auto;">
                             <tr>
                                 <td> </td>
                                 <td>Nome</td>
                                 <td>Durata</td>
-                                <td>Id Docente</td>
+                                <td>Docente</td>
                             </tr>
                             <tr>
                             <%
@@ -46,7 +47,7 @@
                                 <td><input type="radio" name="rdoIDCorso" value="<%= corso.getChiave() %>" required ></td>
                                 <td> <%= corso.getNome() %></td>
                                 <td> <%= corso.getDurata() %></td>
-                                <td> <%= corso.getObjDocente().getChiave() %></td>
+                                <td> <%= corso.getObjDocente().getCognome() %></td>
                             </tr>
                             <%
                             } %>

@@ -1,6 +1,7 @@
 package model.session;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Discente")
@@ -13,6 +14,9 @@ public class Discente {
     private String cognome;
     @Column(name = "nome")
     private String nome;
+    @ManyToMany(mappedBy = "discenti")
+    private Set<Corso> corsi;
+
      public Discente(){
          this.nome = "";
          this.cognome="";
@@ -40,5 +44,13 @@ public class Discente {
 
     public String getCognome() {
         return cognome;
+    }
+
+    public Set<Corso> getCorsi() {
+        return corsi;
+    }
+
+    public void setCorsi(Set<Corso> corsi) {
+        this.corsi = corsi;
     }
 }
