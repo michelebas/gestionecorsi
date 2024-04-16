@@ -81,19 +81,17 @@ public class CtrlGestioneCorso extends HttpServlet {
     }
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Docente oDocente = new Docente();
-        DiscenteService oDiscenteService = new DiscenteService();
+        Discente oDiscente = new Discente();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
         // TODO Auto-generated method stub
         beanCorso.setNome(request.getParameter("txtNome"));
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
         oDocente.setChiave(Integer.parseInt(request.getParameter("sceltaDocente")));
         beanCorso.setObjDocente(oDocente);
-        List<Discente> elencoDiscenti = oDiscenteService.findAll();
+        oDiscente.setChiave(Integer.parseInt(request.getParameter("sceltaDiscente")));
         List<Discente> elenco = new ArrayList<>();
-        for(Discente discente:elencoDiscenti){
-            discente.setChiave(Integer.parseInt(request.getParameter("sceltaDiscente")));
-            beanCorso.setDiscenti(elenco);
-        }
+        elenco.add(oDiscente);
+        beanCorso.setDiscenti(elenco);
         if(beanCorso.getChiave() == 0)
             oCorsoService.persist(beanCorso);
         else

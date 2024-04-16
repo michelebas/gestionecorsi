@@ -21,7 +21,6 @@ public class Discente {
      public Discente(){
          this.nome = "";
          this.cognome="";
-         this.corsi = new ArrayList<>();
      }
 
     public void setChiave(int chiave) {

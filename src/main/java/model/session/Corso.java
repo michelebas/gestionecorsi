@@ -33,8 +33,6 @@ public class Corso {
     public Corso(){
         this.nome = "";
         this.durata = 0 ;
-        this.oDocente = new Docente();
-        this.discenti = new ArrayList<>();
     }
 
     public void setChiave(int chiave) {
