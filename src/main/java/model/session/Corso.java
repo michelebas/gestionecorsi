@@ -1,9 +1,10 @@
 package model.session;
 
+import org.hibernate.boot.model.naming.ImplicitAnyDiscriminatorColumnNameSource;
+
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Corso")
@@ -21,17 +22,19 @@ public class Corso {
     @JoinColumn(name = "fkIdDocente")
     private Docente oDocente;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name="corsoDiscente",
-            joinColumns = @JoinColumn(name = "matricola"),
-            inverseJoinColumns = @JoinColumn(name = "idCorso"))
-    private Set<Discente> discenti;
+            name="Corso_Discente",
+            joinColumns = { @JoinColumn(name = "fkidCorso")},
+            inverseJoinColumns = {@JoinColumn(name = "fkmatricola")})
+    private List<Discente> discenti;
 
 
     public Corso(){
         this.nome = "";
         this.durata = 0 ;
+        this.oDocente = new Docente();
+        this.discenti = new ArrayList<>();
     }
 
     public void setChiave(int chiave) {
@@ -66,11 +69,11 @@ public class Corso {
         return oDocente;
     }
 
-    public void setDiscenti(Set<Discente> discenti) {
+    public void setDiscenti(List<Discente> discenti) {
         this.discenti = discenti;
     }
 
-    public Set<Discente> getDiscenti() {
+    public List<Discente> getDiscenti() {
         return discenti;
     }
 }

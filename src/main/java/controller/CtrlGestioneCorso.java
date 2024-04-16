@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.CorsoService;
-import model.dao.DocenteService;
+import model.dao.DiscenteService;
 import model.session.Corso;
 import model.session.Discente;
 import model.session.Docente;
@@ -80,12 +81,19 @@ public class CtrlGestioneCorso extends HttpServlet {
     }
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Docente oDocente = new Docente();
+        DiscenteService oDiscenteService = new DiscenteService();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
         // TODO Auto-generated method stub
         beanCorso.setNome(request.getParameter("txtNome"));
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
         oDocente.setChiave(Integer.parseInt(request.getParameter("sceltaDocente")));
         beanCorso.setObjDocente(oDocente);
+        List<Discente> elencoDiscenti = oDiscenteService.findAll();
+        List<Discente> elenco = new ArrayList<>();
+        for(Discente discente:elencoDiscenti){
+            discente.setChiave(Integer.parseInt(request.getParameter("sceltaDiscente")));
+            beanCorso.setDiscenti(elenco);
+        }
         if(beanCorso.getChiave() == 0)
             oCorsoService.persist(beanCorso);
         else
@@ -112,7 +120,5 @@ public class CtrlGestioneCorso extends HttpServlet {
                 "/GestioneCorso/PgsGestioneCorso.jsp");
         oDispatcher.forward(request, response);
     }
-
-
 
 }

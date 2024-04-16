@@ -117,7 +117,7 @@ public class CtrlArchivioDocente extends HttpServlet {
 		// TODO Auto-generated method stub
 		List<Docente> elenco = oDocenteService.findAll();
 		
-		request.setAttribute("elencoDocenti", elenco);
+		request.setAttribute("elencoDocenti", elenco);//inserisce nella mappa un elenco di oggetti docente accessibili alla pagina jsp
 		//Definizione di un oggetto della classeServletContext
 		ServletContext oContesto = getServletContext();
 		//Definizione di un oggetto per la pubblicazione della PGS

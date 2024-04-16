@@ -1,7 +1,8 @@
 package model.session;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Discente")
@@ -15,11 +16,12 @@ public class Discente {
     @Column(name = "nome")
     private String nome;
     @ManyToMany(mappedBy = "discenti")
-    private Set<Corso> corsi;
+    private List<Corso> corsi;
 
      public Discente(){
          this.nome = "";
          this.cognome="";
+         this.corsi = new ArrayList<>();
      }
 
     public void setChiave(int chiave) {
@@ -46,11 +48,11 @@ public class Discente {
         return cognome;
     }
 
-    public Set<Corso> getCorsi() {
-        return corsi;
+    public void setCorsi(List<Corso> corsi) {
+        this.corsi = corsi;
     }
 
-    public void setCorsi(Set<Corso> corsi) {
-        this.corsi = corsi;
+    public List<Corso> getCorsi() {
+        return corsi;
     }
 }

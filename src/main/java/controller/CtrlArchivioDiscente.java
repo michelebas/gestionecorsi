@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.CorsoService;
 import model.dao.DiscenteService;
+import model.session.Corso;
 import model.session.Discente;
 
 @WebServlet("/CtrlArchivioDiscente")

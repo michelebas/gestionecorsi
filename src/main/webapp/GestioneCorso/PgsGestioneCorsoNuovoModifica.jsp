@@ -1,6 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@page import="model.session.Docente"%>
 <%@page import="model.dao.DocenteService"%>
+<%@page import="model.session.Discente"%>
+<%@page import="model.dao.DiscenteService"%>
 <html>
     <head>
         <%@ page
@@ -30,18 +32,18 @@
             <h1 align="center">Crea nuovo Corso</h1>
         </div>
 
-        <div class="container" style="margin-top:120px; width: 600px; height: 640px;box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
+        <div class="container" style="margin-top:120px;width:50%; box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
             <form method="post" action="/WebProjectMavenized/CtrlGestioneCorso" class="was-validated">
                 <div align="center" >
-                    <div class="mb-3 mt-3">
+                    <div class="mb-3 mt-3" style="width:50%;">
                         <input type="text" class="form-control" name="txtNome" value="<%= beanCorso.getNome()%>" maxlength="50" placeholder="Nome Corso" required>
                             <div class="invalid-feedback">Per favore inserisci il nome</div>
                     </div><br>
-                    <div class="mb-3">
+                    <div class="mb-3" style="width:50%;">
                         <input type="number" class="form-control" name="txtDurata" value="<%= beanCorso.getDurata()%>" min="1" placeholder="Durata" required>
                         <div class="invalid-feedback">Per favore inserisci la durata</div>
                     </div>
-                    <div class="mb-3">
+                    <div class="container mb-3">
                         <table class="table table-hover table-dark table-responsive-sm mt-3">
                             <thead>
                                 <th></th>
@@ -57,9 +59,9 @@
                                 <tr>
                                 <%
                                    DocenteService oDocenteService = new DocenteService();
-                                   List<Docente> elenco = oDocenteService.findAll();
-                                   if(!elenco.isEmpty()){
-                                      for(Docente doc:elenco){
+                                   List<Docente> elencoDocenti = oDocenteService.findAll();
+                                   if(!elencoDocenti.isEmpty()){
+                                      for(Docente doc:elencoDocenti){
                                 %>
                                     <td><input type="radio" name="sceltaDocente" value="<%= doc.getChiave() %>" required></td>
                                     <td><%= doc.getCognome() %></td>
@@ -69,7 +71,35 @@
                             </tbody>
                         </table>
                         <% } else{%> Non ci sono Docenti<% } %>
-                        <div class="invalid-feedback">Per favore inserisci l id del docente</div>
+                    </div>
+                    <div class="container mb-3">
+                        <table class="table table-hover table-dark table-responsive-sm mt-3">
+                            <thead>
+                                <th></th>
+                                <th>Scegli il discente</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>Cognome</td>
+                                    <td>Nome</td>
+                                </tr>
+                                <tr>
+                                <%
+                                   DiscenteService oDiscenteService = new DiscenteService();
+                                   List<Discente> elencoDiscenti = oDiscenteService.findAll();
+                                   if(!elencoDiscenti.isEmpty()){
+                                      for(Discente discente:elencoDiscenti){
+                                %>
+                                    <td><input type="checkbox" name="sceltaDiscente" value="<%= discente.getChiave() %>"></td>
+                                    <td><%= discente.getCognome() %></td>
+                                    <td><%= discente.getNome() %></td>
+                                </tr>
+                            <%} %>
+                            </tbody>
+                        </table>
+                        <% } else{%> Non ci sono Discenti<% } %>
                     </div>
                     <div class="container mt-3">
                         <input type="submit" name="cmdAzione" value="Registra" class=" btn btn-primary">

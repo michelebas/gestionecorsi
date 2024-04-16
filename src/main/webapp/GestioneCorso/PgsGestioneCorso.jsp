@@ -2,6 +2,7 @@
 <%@page import="model.session.Corso"%>
 <%@page import="model.session.Docente"%>
 <%@page import="model.session.Discente"%>
+<%@page import="model.dao.DiscenteService"%>
 <html>
     <head>
         <%@ page
@@ -30,7 +31,8 @@
                 <input type="submit" name="cmdAzione" value="Torna alla Home" class=" btn btn-primary">
             </form>
             <form method="post" action="/WebProjectMavenized/CtrlGestioneCorso" name="GestioneCorso">
-                    <table class="table table-hover table-dark table-responsive-sm" style="margin-left:35px;">
+                <div class="container">
+                    <table class="table table-hover table-dark table-responsive-sm">
                         <tbody style="display:-webkit-inline-box; max-height:200px; overflow-y:auto;">
                             <tr>
                                 <td> </td>
@@ -41,7 +43,7 @@
                             <tr>
                             <%
                                List<Corso> elenco= (List) request.getAttribute("elencoCorsi");
-                               if(!elenco.isEmpty()){
+                                if(!elenco.isEmpty()){
                                     for(Corso corso:elenco){
                             %>
                                 <td><input type="radio" name="rdoIDCorso" value="<%= corso.getChiave() %>" required ></td>
@@ -53,6 +55,7 @@
                             } %>
                         </tbody>
                     </table>
+                </div>
                     <% } else{%> Non ci sono Corsi<% } %> <br>
 
                     <input type="submit" name="cmdAzione" value="Modifica" class=" btn btn-primary">
