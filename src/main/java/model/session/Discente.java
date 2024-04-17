@@ -1,7 +1,5 @@
 package model.session;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
-
 import javax.persistence.*;
 import java.util.List;
 

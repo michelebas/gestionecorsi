@@ -22,7 +22,7 @@
         <div class="container" style="margin-top:50px;">
             <h1 align="center">Menu Generale</h1>
         </div>
-        <div align="center" class="container" style="margin-top:150px; width: 400px; height: 440px;box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
+        <div align="center" class="container mt-3" style="width:50%; box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
             <form method="post" action="/WebProjectMavenized/CtrlMain">
                     <table class="table table-hover table-dark table-responsive-sm" >
                         <tbody>

@@ -1,8 +1,5 @@
 package model.session;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import org.hibernate.boot.model.naming.ImplicitAnyDiscriminatorColumnNameSource;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class Corso {
     @JoinColumn(name = "fkIdDocente")
     private Docente oDocente;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name="Corso_Discente",
             joinColumns = { @JoinColumn(name = "fkidCorso")},

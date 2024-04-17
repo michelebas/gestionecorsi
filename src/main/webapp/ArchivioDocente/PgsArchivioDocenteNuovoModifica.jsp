@@ -27,7 +27,7 @@
             <h1 align="center">Crea nuovo docente</h1>
         </div>
 
-        <div class="container" style="margin-top:150px; width: 400px; height: 440px;box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
+        <div class="container mt-3" style="width: 400px; height: 440px;box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
             <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" class="was-validated">
                 <div align="center" >
                     <div class="mb-3 mt-3">

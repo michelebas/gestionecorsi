@@ -1,9 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -87,16 +86,13 @@ public class CtrlGestioneCorso extends HttpServlet {
         oDocente.setChiave(Integer.parseInt(request.getParameter("rdoIdDocente")));
         beanCorso.setObjDocente(oDocente);
         DiscenteService oDiscenteService = new DiscenteService();
-        String[] check = request.getParameterValues("checkIdDiscente");
+        String[] check = request.getParameterValues("checkIdDiscente");//creo un array di stringhe e assegno i vari checkbox cliccati dall'utente
         List<Discente> elencoDiscenti = new ArrayList<>();
-        for (int j=0;j<check.length;j++) {
-            Discente oDiscente = oDiscenteService.findById(j);
+        for (String i : check) {//scorro l'array di stringhe
+            Discente oDiscente = oDiscenteService.findById(Integer.parseInt(i)); //assegno ad ogni oggetto discente il suo i-esimo id
             elencoDiscenti.add(oDiscente);
         }
         beanCorso.setDiscenti(elencoDiscenti);
-        for(Discente discente:elencoDiscenti){
-            System.out.println(discente.getCognome());
-        }
         if(beanCorso.getChiave() == 0)
             oCorsoService.persist(beanCorso);
         else
