@@ -63,7 +63,7 @@
                                    if(!elencoDocenti.isEmpty()){
                                       for(Docente doc:elencoDocenti){
                                 %>
-                                    <td><input type="radio" name="sceltaDocente" value="<%= doc.getChiave() %>" required></td>
+                                    <td><input type="radio" name="rdoIdDocente" value="<%= doc.getChiave() %>" required></td>
                                     <td><%= doc.getCognome() %></td>
                                     <td><%= doc.getNome() %></td>
                                 </tr>
@@ -92,7 +92,7 @@
                                    if(!elencoDiscenti.isEmpty()){
                                       for(Discente discente:elencoDiscenti){
                                 %>
-                                    <td><input type="checkbox" name="sceltaDiscente" value="<%= discente.getChiave() %>"></td>
+                                    <td><input type="checkbox" name="checkIdDiscente" value="<%= discente.getChiave() %>"></td>
                                     <td><%= discente.getCognome() %></td>
                                     <td><%= discente.getNome() %></td>
                                 </tr>

@@ -1,7 +1,8 @@
 package model.session;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

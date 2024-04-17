@@ -2,9 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -81,17 +80,23 @@ public class CtrlGestioneCorso extends HttpServlet {
     }
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Docente oDocente = new Docente();
-        Discente oDiscente = new Discente();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
         // TODO Auto-generated method stub
         beanCorso.setNome(request.getParameter("txtNome"));
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
-        oDocente.setChiave(Integer.parseInt(request.getParameter("sceltaDocente")));
+        oDocente.setChiave(Integer.parseInt(request.getParameter("rdoIdDocente")));
         beanCorso.setObjDocente(oDocente);
-        oDiscente.setChiave(Integer.parseInt(request.getParameter("sceltaDiscente")));
-        List<Discente> elenco = new ArrayList<>();
-        elenco.add(oDiscente);
-        beanCorso.setDiscenti(elenco);
+        DiscenteService oDiscenteService = new DiscenteService();
+        String[] check = request.getParameterValues("checkIdDiscente");
+        List<Discente> elencoDiscenti = new ArrayList<>();
+        for (int j=0;j<check.length;j++) {
+            Discente oDiscente = oDiscenteService.findById(j);
+            elencoDiscenti.add(oDiscente);
+        }
+        beanCorso.setDiscenti(elencoDiscenti);
+        for(Discente discente:elencoDiscenti){
+            System.out.println(discente.getCognome());
+        }
         if(beanCorso.getChiave() == 0)
             oCorsoService.persist(beanCorso);
         else
