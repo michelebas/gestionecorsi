@@ -15,38 +15,65 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+            body{
+                background:url('Applicazione/BG5.jpg') no-repeat;
+                background-position:center;
+                font-family:'Roboto', sans-serif;
+            }
+            .container-fluid{
+                display : grid;
+                justify-content:center;
+            }
+            .container{
+                 box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+                 background: transparent; padding:70px;
+                 border-radius: 20px;
+                 border: 2px solid rgba(255, 255, 255, .5);
+            }
+            .col{
+                display : flex;
+                justify-content:center;
+            }
+        </style>
     </head>
-    <body style="background:url('Applicazione/BG5.jpg') no-repeat; background-position:center; font-family:'Roboto', sans-serif;">
+    <body>
 
         <jsp:useBean id="beanDocente" scope="session"
             class="model.session.Docente">
             <jsp:setProperty name="beanDocente" property="*" />
         </jsp:useBean>
 
-        <div class="container" style="margin-top:50px;">
-            <h1 align="center">Crea nuovo docente</h1>
-        </div>
 
-        <div class="container mt-3" style="width: 400px; height: 440px;box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
-            <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" class="was-validated">
-                <div align="center" >
-                    <div class="mb-3 mt-3">
-                        <input type="text" class="form-control" name="txtCognome" value="<%= beanDocente.getCognome()%>" maxlength="50" placeholder="Cognome" required>
-                        <div class="invalid-feedback">Per favore inserisci il cognome</div>
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" name="txtNome" value="<%= beanDocente.getNome()%>" maxlength="50" placeholder="Nome" required>
-                        <div class="invalid-feedback">Per favore inserisci il nome</div>
-                    </div>
+        <div class="container-fluid">
+            <div class="row mt-3 mb-3">
+                <div class="col">
+                    <h1>Crea nuovo docente</h1>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
                     <div class="container">
-                    <input type="submit" name="cmdAzione" value="Registra" class=" btn btn-primary">
+                        <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" class="was-validated">
+                                <div class="mb-3 mt-3">
+                                    <input type="text" class="form-control" name="txtCognome" value="<%= beanDocente.getCognome()%>" maxlength="50" placeholder="Cognome" required>
+                                    <div class="invalid-feedback">Inserisci il cognome</div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="txtNome" value="<%= beanDocente.getNome()%>" maxlength="50" placeholder="Nome" required>
+                                    <div class="invalid-feedback">Inserisci il nome</div>
+                                </div>
+                                <div class="d-grid">
+                                    <input type="submit" name="cmdAzione" value="Registra" class=" btn btn-primary btn-block">
+                                </div>
+                        </form>
+                        <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente">
+                            <div class="d-grid">
+                                <input type="submit" name="cmdAzione" value="Annulla" class=" btn btn-primary btn-block">
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-            <div align="center">
-                <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente">
-                     <input type="submit" name="cmdAzione" value="Annulla" class=" btn btn-primary">
-                </form>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

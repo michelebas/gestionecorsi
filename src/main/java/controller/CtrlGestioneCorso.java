@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import model.dao.CorsoService;
 import model.dao.DiscenteService;
@@ -26,58 +27,47 @@ public class CtrlGestioneCorso extends HttpServlet {
 
     private CorsoService oCorsoService = new CorsoService();
 
-    public CtrlGestioneCorso(){
+    public CtrlGestioneCorso() {
         super();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String azione = request.getParameter("cmdAzione");
-        if(azione == null)
-        {
-            visualizzaElenco(request,response);
-        }else if(azione.equals("Torna alla Home"))
-        {
-            getServletContext().getRequestDispatcher("/CtrlMain").forward(request, response);
-        }
-        else if(azione.equals("Nuovo"))
-        {
-            nuovoCorso(request, response);
-        }
-        else if(azione.equals("Annulla"))
-        {
+        if (azione == null) {
             visualizzaElenco(request, response);
-        }
-        else if(azione.equals("Registra"))
-        {
+        } else if (azione.equals("Torna alla Home")) {
+            getServletContext().getRequestDispatcher("/CtrlMain").forward(request, response);
+        } else if (azione.equals("Nuovo")) {
+            nuovoCorso(request, response);
+        } else if (azione.equals("Annulla")) {
+            visualizzaElenco(request, response);
+        } else if (azione.equals("Registra")) {
             salvaCorso(request, response);
             visualizzaElenco(request, response);
-        }
-        else if(azione.equals("Modifica"))
-        {
+        } else if (azione.equals("Modifica")) {
             modificaCorso(request, response);
-        }
-        else if(azione.equals("Elimina"))
-        {
+        } else if (azione.equals("Elimina")) {
             eliminaCorso(request, response);
-        }
-        else if(azione.equals("Conferma"))
-        {
+        } else if (azione.equals("Conferma")) {
             cancellaCorso(request, response);
             visualizzaElenco(request, response);
         }
     }
 
-    private void cancellaCorso(HttpServletRequest request, HttpServletResponse response){
+    private void cancellaCorso(HttpServletRequest request, HttpServletResponse response) {
         oCorsoService.delete(((Corso) request.getSession().getAttribute("beanCorso")));
     }
-    private void eliminaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+
+    private void eliminaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("beanCorso", oCorsoService.findById(Integer.parseInt(request.getParameter("rdoIDCorso"))));
         getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoElimina.jsp").forward(request, response);
     }
+
     private void modificaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("beanCorso", oCorsoService.findById(Integer.parseInt(request.getParameter("rdoIDCorso"))));
         getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovoModifica.jsp").forward(request, response);
     }
+
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DocenteService oDocenteService = new DocenteService();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
@@ -86,8 +76,8 @@ public class CtrlGestioneCorso extends HttpServlet {
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
         String rdoDocente = request.getParameter("rdoIdDocente");
         List<Docente> elencoDocenti = oDocenteService.findAll();
-        for(Docente docente:elencoDocenti){
-            if(Integer.parseInt(rdoDocente) == docente.getChiave()){
+        for (Docente docente : elencoDocenti) {
+            if (Integer.parseInt(rdoDocente) == docente.getChiave()) {
                 beanCorso.setObjDocente(docente);
             }
         }
@@ -99,7 +89,7 @@ public class CtrlGestioneCorso extends HttpServlet {
             elencoDiscenti.add(oDiscente);
         }
         beanCorso.setDiscenti(elencoDiscenti);
-        if(beanCorso.getChiave() == 0)
+        if (beanCorso.getChiave() == 0)
             oCorsoService.persist(beanCorso);
         else
             oCorsoService.update(beanCorso);
@@ -113,11 +103,13 @@ public class CtrlGestioneCorso extends HttpServlet {
         getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovoModifica.jsp").forward(request, response);
     }
 
+    @Transactional
     private void visualizzaElenco(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         List<Corso> elenco = oCorsoService.findAll();
 
         request.setAttribute("elencoCorsi", elenco);
+
         //Definizione di un oggetto della classeServletContext
         ServletContext oContesto = getServletContext();
         //Definizione di un oggetto per la pubblicazione della PGS
@@ -125,5 +117,4 @@ public class CtrlGestioneCorso extends HttpServlet {
                 "/GestioneCorso/PgsGestioneCorso.jsp");
         oDispatcher.forward(request, response);
     }
-
 }

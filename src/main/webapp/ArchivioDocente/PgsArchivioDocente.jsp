@@ -17,46 +17,80 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+            body{
+                background:url('Applicazione/BG5.jpg') no-repeat;
+                background-position:center;
+                font-family:'Roboto', sans-serif;
+            }
+            .container-fluid{
+                display : grid;
+                justify-content:center;
+            }
+            .container{
+                 box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+                 background: transparent; padding:70px;
+                 border-radius: 20px;
+                 border: 2px solid rgba(255, 255, 255, .5);
+            }
+            .col{
+                display : flex;
+                justify-content:center;
+            }
+        </style>
     </head>
-    <body style="background:url('Applicazione/BG5.jpg') no-repeat; background-position:center; font-family:'Roboto', sans-serif;">
+    <body>
+        <div class="container-fluid">
+            <div class="row mt-3 mb-3">
+                <div class="col">
+                <h1>Archivio Docenti</h1>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="container">
+                        <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
+                            <div class="d-grid">
+                                <input type="submit" name="cmdAzione" value="Torna alla Home" class=" btn btn-primary btn-block">
+                            </div>
+                        </form>
+                        <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
+                                <table class="table table-hover table-dark table-responsive-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td> </td>
+                                            <td>Cognome</td>
+                                            <td>Nome</td>
+                                        </tr>
+                                        <tr>
+                                        <%
+                                           List<Docente> elenco = (List) request.getAttribute("elencoDocenti");
+                                           if(!elenco.isEmpty()){
+                                               for(Docente doc:elenco){
+                                        %>
+                                            <td><input type="radio" name="rdoIDDocente" value="<%= doc.getChiave() %>" required> </td>
+                                            <td> <%= doc.getCognome() %></td>
+                                            <td> <%= doc.getNome() %></td>
+                                        </tr>
+                                        <%
+                                        } %>
+                                    </tbody>
+                                </table>
+                                <% } else{%> Non ci sono Docenti<% } %> <br>
 
-        <div class="container" style="margin-top:50px;">
-            <h1 align="center">Archivio Docenti</h1>
-        </div>
-        <div align="center" class="container mt-3" style="width:50%; box-shadow: 0 0 30px rgba(0, 0, 0, .5); background: transparent; padding:70px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .5); backdrop-filter: blur(20px);">
-            <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
-                <input type="submit" name="cmdAzione" value="Torna alla Home" class=" btn btn-primary">
-            </form>
-            <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
-                    <table class="table table-hover table-dark table-responsive-sm">
-                        <tbody>
-                            <tr>
-                                <td> </td>
-                                <td>Cognome</td>
-                                <td>Nome</td>
-                            </tr>
-                            <tr>
-                            <%
-                               List<Docente> elenco = (List) request.getAttribute("elencoDocenti");
-                               if(!elenco.isEmpty()){
-                                   for(Docente doc:elenco){
-                            %>
-                                <td><input type="radio" name="rdoIDDocente" value="<%= doc.getChiave() %>" required> </td>
-                                <td> <%= doc.getCognome() %></td>
-                                <td> <%= doc.getNome() %></td>
-                            </tr>
-                            <%
-                            } %>
-                        </tbody>
-                    </table>
-                    <% } else{%> Non ci sono Docenti<% } %> <br>
-
-                    <input type="submit" name="cmdAzione" value="Modifica" class=" btn btn-primary">
-                    <input type="submit" name="cmdAzione" value="Elimina" class=" btn btn-primary">
-            </form>
-            <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
-                <input type="submit" name="cmdAzione" value="Nuovo" class=" btn btn-primary">
-            </form>
+                                <div class="d-grid">
+                                    <input type="submit" name="cmdAzione" value="Modifica" class=" btn btn-primary btn-block"><br>
+                                    <input type="submit" name="cmdAzione" value="Elimina" class=" btn btn-primary btn-block">
+                                </div>
+                        </form>
+                        <form method="post" action="/WebProjectMavenized/CtrlArchivioDocente" name="ArchivioDocente">
+                            <div class="d-grid">
+                                <input type="submit" name="cmdAzione" value="Nuovo" class=" btn btn-primary btn-block">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

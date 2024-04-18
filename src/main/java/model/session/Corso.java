@@ -19,7 +19,7 @@ public class Corso {
     @JoinColumn(name = "fkIdDocente")
     private Docente oDocente;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name="Corso_Discente",
             joinColumns = { @JoinColumn(name = "fkidCorso")},
