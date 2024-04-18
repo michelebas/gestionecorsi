@@ -1,9 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.*;
 
+import javax.print.Doc;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.CorsoService;
 import model.dao.DiscenteService;
+import model.dao.DocenteService;
 import model.session.Corso;
 import model.session.Discente;
 import model.session.Docente;
@@ -78,13 +79,18 @@ public class CtrlGestioneCorso extends HttpServlet {
         getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovoModifica.jsp").forward(request, response);
     }
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Docente oDocente = new Docente();
+        DocenteService oDocenteService = new DocenteService();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
         // TODO Auto-generated method stub
         beanCorso.setNome(request.getParameter("txtNome"));
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
-        oDocente.setChiave(Integer.parseInt(request.getParameter("rdoIdDocente")));
-        beanCorso.setObjDocente(oDocente);
+        String rdoDocente = request.getParameter("rdoIdDocente");
+        List<Docente> elencoDocenti = oDocenteService.findAll();
+        for(Docente docente:elencoDocenti){
+            if(Integer.parseInt(rdoDocente) == docente.getChiave()){
+                beanCorso.setObjDocente(docente);
+            }
+        }
         DiscenteService oDiscenteService = new DiscenteService();
         String[] check = request.getParameterValues("checkIdDiscente");//creo un array di stringhe e assegno i vari checkbox cliccati dall'utente
         List<Discente> elencoDiscenti = new ArrayList<>();

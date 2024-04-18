@@ -50,4 +50,12 @@ public class Docente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public void setElencoCorsi(List<Corso> elencoCorsi) {
+		this.elencoCorsi = elencoCorsi;
+	}
+
+	public List<Corso> getElencoCorsi() {
+		return elencoCorsi;
+	}
 }

@@ -1,6 +1,7 @@
 package model.session;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Aula")
@@ -12,6 +13,7 @@ public class Aula {
 
     @Column(name = "nome")
     private String nome;
+
 /*
     @ManyToMany(mappedBy = "oAula")
     @JoinColumn(name = "fkIdDocente")
@@ -32,5 +34,6 @@ public class Aula {
     public String getNome() {
         return nome;
     }
+
 
 }
