@@ -15,27 +15,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        <style>
-            body{
-                background:url('Applicazione/BG5.jpg') no-repeat;
-                background-position:center;
-                font-family:'Roboto', sans-serif;
-            }
-            .container-fluid{
-                display : grid;
-                justify-content:center;
-            }
-            .container{
-                 box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-                 background: transparent; padding:70px;
-                 border-radius: 20px;
-                 border: 2px solid rgba(255, 255, 255, .5);
-            }
-            .col{
-                display : flex;
-                justify-content:center;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     </head>
     <body>
 

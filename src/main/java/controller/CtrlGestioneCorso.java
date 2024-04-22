@@ -65,28 +65,26 @@ public class CtrlGestioneCorso extends HttpServlet {
 
     private void modificaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("beanCorso", oCorsoService.findById(Integer.parseInt(request.getParameter("rdoIDCorso"))));
-        getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovoModifica.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoModifica.jsp").forward(request, response);
     }
 
     private void salvaCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DocenteService oDocenteService = new DocenteService();
+        DocenteService docenteService = new DocenteService();
         Corso beanCorso = ((Corso) request.getSession().getAttribute("beanCorso"));
         // TODO Auto-generated method stub
         beanCorso.setNome(request.getParameter("txtNome"));
         beanCorso.setDurata(Integer.parseInt(request.getParameter("txtDurata")));
-        String rdoDocente = request.getParameter("rdoIdDocente");
-        List<Docente> elencoDocenti = oDocenteService.findAll();
-        for (Docente docente : elencoDocenti) {
-            if (Integer.parseInt(rdoDocente) == docente.getChiave()) {
-                beanCorso.setObjDocente(docente);
-            }
-        }
+
+        Integer rdoDocente = Integer.parseInt(request.getParameter("rdoIdDocente"));
+        Docente docente = docenteService.findById(rdoDocente);
+        beanCorso.setObjDocente(docente);
+
         DiscenteService oDiscenteService = new DiscenteService();
         String[] check = request.getParameterValues("checkIdDiscente");//creo un array di stringhe e assegno i vari checkbox cliccati dall'utente
         List<Discente> elencoDiscenti = new ArrayList<>();
         for (String i : check) {//scorro l'array di stringhe
-            Discente oDiscente = oDiscenteService.findById(Integer.parseInt(i)); //assegno ad ogni oggetto discente il suo i-esimo id
-            elencoDiscenti.add(oDiscente);
+            Discente discente = oDiscenteService.findById(Integer.parseInt(i)); //assegno ad ogni oggetto discente il suo i-esimo id
+            elencoDiscenti.add(discente);
         }
         beanCorso.setDiscenti(elencoDiscenti);
         if (beanCorso.getChiave() == 0)
@@ -97,13 +95,12 @@ public class CtrlGestioneCorso extends HttpServlet {
 
     private void nuovoCorso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Corso oCorso = new Corso();
+        Corso corso = new Corso();
         HttpSession oSessione = request.getSession();
-        oSessione.setAttribute("beanCorso", oCorso);
-        getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovoModifica.jsp").forward(request, response);
+        oSessione.setAttribute("beanCorso", corso);
+        getServletContext().getRequestDispatcher("/GestioneCorso/PgsGestioneCorsoNuovo.jsp").forward(request, response);
     }
 
-    @Transactional
     private void visualizzaElenco(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         List<Corso> elenco = oCorsoService.findAll();

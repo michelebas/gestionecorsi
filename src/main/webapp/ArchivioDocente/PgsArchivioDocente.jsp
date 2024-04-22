@@ -11,39 +11,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="GENERATOR" content="IBM WebSphere Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>pgsArchivioDocente.jsp</title>
+        <title>Archivio Docente </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        <style>
-            body{
-                background:url('Applicazione/BG5.jpg') no-repeat;
-                background-position:center;
-                font-family:'Roboto', sans-serif;
-            }
-            .container-fluid{
-                display : grid;
-                justify-content:center;
-            }
-            .container{
-                 box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-                 background: transparent; padding:70px;
-                 border-radius: 20px;
-                 border: 2px solid rgba(255, 255, 255, .5);
-            }
-            .col{
-                display : flex;
-                justify-content:center;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     </head>
     <body>
         <div class="container-fluid">
             <div class="row mt-3 mb-3">
                 <div class="col">
-                <h1>Archivio Docenti</h1>
+                    <h1>Archivio Docenti</h1>
                 </div>
             </div>
             <div class="row mt-3">
@@ -66,11 +46,11 @@
                                         <%
                                            List<Docente> elenco = (List) request.getAttribute("elencoDocenti");
                                            if(!elenco.isEmpty()){
-                                               for(Docente doc:elenco){
+                                               for(Docente docente:elenco){
                                         %>
-                                            <td><input type="radio" name="rdoIDDocente" value="<%= doc.getChiave() %>" required> </td>
-                                            <td> <%= doc.getCognome() %></td>
-                                            <td> <%= doc.getNome() %></td>
+                                            <td><input type="radio" name="rdoIDDocente" value="<%= docente.getChiave() %>" required> </td>
+                                            <td> <%= docente.getCognome() %></td>
+                                            <td> <%= docente.getNome() %></td>
                                         </tr>
                                         <%
                                         } %>

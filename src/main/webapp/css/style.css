@@ -1,0 +1,19 @@
+body{
+    background: url("http://i.stack.imgur.com/jGlzr.png") no-repeat;
+    font-family:'Roboto', sans-serif;
+}
+.container-fluid{
+    display : grid;
+    justify-content:center;
+}
+.container{
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    background: transparent;
+    padding:70px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, .5);
+}
+.col{
+    display : flex;
+    justify-content:center;
+}

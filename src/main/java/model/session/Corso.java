@@ -1,5 +1,8 @@
 package model.session;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,7 +22,8 @@ public class Corso {
     @JoinColumn(name = "fkIdDocente")
     private Docente oDocente;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(
             name="Corso_Discente",
             joinColumns = { @JoinColumn(name = "fkidCorso")},
